@@ -5,6 +5,11 @@ namespace Blog\Domain\Models;
 use Blog\Infrastructure\Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 
+/**
+ * Class User
+ *
+ * @package Blog\Domain\Models
+ */
 class User extends Authenticatable
 {
     use Notifiable;
@@ -30,6 +35,11 @@ class User extends Authenticatable
         'password',
         'remember_token',
     ];
+
+    public function getUsernameAttribute()
+    {
+        return "@{$this->attributes['username']}";
+    }
 
     /**
      * Return the users avatar.
