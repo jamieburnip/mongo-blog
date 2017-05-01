@@ -11,4 +11,8 @@
 |
 */
 
+Auth::routes();
+
 Route::get('/', 'BlogController@index');
+Route::get('/blog', 'BlogController@index');
+Route::get('/blog/{id}', 'BlogController@show');
