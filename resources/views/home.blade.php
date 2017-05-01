@@ -11,11 +11,8 @@
                     <article class="media">
                         <div class="media-content">
                             <div class="content">
-                                <h2><a href="{{ url('blog/1') }}">{{ $post['title'] }}</a></h2>
-                                <p>
-                                    Consectetur adipiscing elit. Aenean efficitur sit amet massa
-                                    fringilla egestas. Nullam condimentum luctus turpis.
-                                </p>
+                                <h2><a href="{{ url("blog/{$post['slug']}") }}">{{ $post['title'] }}</a></h2>
+                                <p>{{ $post['snippet'] }}</p>
                                 <p>
                                     <strong>{{ $post['author']['name'] }}</strong>
                                     <small>

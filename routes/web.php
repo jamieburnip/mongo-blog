@@ -18,7 +18,7 @@ Route::get('/blog', 'BlogController@index');
 
 Route::get('/blog/{slug}', 'BlogController@show');
 
-Route::get('/profile/{username}', 'UserController@show');
+Route::get('/profile/{username}', 'ProfileController@show');
 
 Route::group(['namespace' => 'Admin', 'middleware' => 'auth'], function () {
     Route::get('/admin/new-post', 'BlogController@create');
