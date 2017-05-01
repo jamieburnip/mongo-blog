@@ -2,8 +2,8 @@
 
 namespace Blog\Domain\Models;
 
+use Blog\Infrastructure\Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
-use Illuminate\Foundation\Auth\User as Authenticatable;
 
 class User extends Authenticatable
 {
