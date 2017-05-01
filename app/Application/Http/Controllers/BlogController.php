@@ -25,12 +25,16 @@ class BlogController extends Controller
     }
 
     /**
-     * @param $id
+     * @param $slug
      *
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
-    public function show($id)
+    public function show($slug)
     {
-        return view('blog.show');
+        $foundPost = Post::where('slug', $slug)->firstorfail();
+
+        $post = fractal($foundPost, new PostTransformer())->toArray();
+
+        return view('blog.show', compact('post'));
     }
 }

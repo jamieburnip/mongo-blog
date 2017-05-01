@@ -22,7 +22,9 @@ class PostTransformer extends TransformerAbstract
         return [
             'id' => $post->id,
             'title' => $post->title,
+            'slug' => $post->slug,
             'body' => $post->body,
+            'snippet' => substr(strip_tags($post->body), 0, 250) . '...',
             'author' => [
                 'name' => $post->user->name,
                 'username' => $post->user->username,

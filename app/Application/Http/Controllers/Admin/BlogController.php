@@ -29,6 +29,7 @@ class BlogController extends Controller
     {
         auth()->user()->posts()->create([
             'title' => $newBlogPostRequest->title,
+            'slug' => str_slug($newBlogPostRequest->title),
             'body' => $newBlogPostRequest->body,
         ]);
 
