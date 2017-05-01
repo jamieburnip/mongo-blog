@@ -1,9 +1,9 @@
 <?php
 
-namespace App\Providers;
+namespace Blog\Infrastructure\Providers;
 
-use Illuminate\Support\ServiceProvider;
 use Illuminate\Support\Facades\Broadcast;
+use Illuminate\Support\ServiceProvider;
 
 class BroadcastServiceProvider extends ServiceProvider
 {
