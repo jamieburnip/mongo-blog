@@ -19,55 +19,36 @@
             <form class="form-horizontal" role="form" method="POST" action="{{ url('/admin/new-post') }}">
                 {{ csrf_field() }}
 
-
                 <div class="field">
-                    <p class="control has-icons-left">
-                        <input id="email" name="email" type="email" placeholder="Email"
-                               class="input {{ $errors->has('email') ? ' is-danger' : '' }}" required
-                               autofocus>
-                        <span class="icon is-small is-left">
-                                  <i class="fa fa-envelope"></i>
-                                </span>
-                    </p>
-                    @if ($errors->has('email'))
-                        <p class="help is-danger">
-                            {{ $errors->first('email') }}
-                        </p>
-                    @endif
-                </div>
-
-                <div class="field">
-                    <p class="control has-icons-left">
-                        <input id="password" name="password" type="password" placeholder="Password"
-                               class="input" required>
-                        <span class="icon is-small is-left">
-                                  <i class="fa fa-lock"></i>
-                                </span>
-                    </p>
-                    @if ($errors->has('password'))
-                        <p class="help is-danger">
-                            {{ $errors->first('password') }}
-                        </p>
-                    @endif
-                </div>
-
-                <div class="field">
+                    <label for="title" class="label">Post Title</label>
                     <p class="control">
-                        <label class="checkbox">
-                            <input type="checkbox"
-                                   name="remember" {{ old('remember') ? 'checked' : '' }}> Remember Me
-                        </label>
+                        <input id="title" name="title" class="input {{ $errors->has('title') ? ' is-danger' : '' }}"
+                               type="text" required autofocus>
                     </p>
+                    @if ($errors->has('title'))
+                        <p class="help is-danger">
+                            {{ $errors->first('title') }}
+                        </p>
+                    @endif
+                </div>
+
+                <div class="field">
+                    <label for="body" class="label">Post</label>
+                    <p class="control">
+                        <textarea id="body" name="body" class="textarea {{ $errors->has('body') ? ' is-danger' : '' }}" required></textarea>
+                    </p>
+                    @if ($errors->has('body'))
+                        <p class="help is-danger">
+                            {{ $errors->first('body') }}
+                        </p>
+                    @endif
                 </div>
 
                 <div class="field">
                     <p class="control">
                         <button class="button is-success">
-                            Login
+                            Post
                         </button>
-                        <a class="btn btn-link" href="{{ route('password.request') }}">
-                            Forgot Your Password?
-                        </a>
                     </p>
                 </div>
             </form>
