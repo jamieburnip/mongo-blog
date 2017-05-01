@@ -45,8 +45,11 @@ class User extends Authenticatable
         return "http://www.gravatar.com/avatar/{$hash}?s=80&d=mm&r=g";
     }
 
-    public function post()
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function posts()
     {
-        return $this->hasMany('Post');
+        return $this->hasMany(Post::class);
     }
 }
