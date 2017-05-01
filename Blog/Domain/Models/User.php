@@ -27,6 +27,26 @@ class User extends Authenticatable
      * @var array
      */
     protected $hidden = [
-        'password', 'remember_token',
+        'password',
+        'remember_token',
     ];
+
+    /**
+     * Return the users avatar.
+     * If the user has not set an avatar, return their Gravitar image using their email address.
+     * If the user does not have a Gravitar it returns a default avatar silhouette.
+     *
+     * @return string
+     */
+    public function getAvatar()
+    {
+        $hash = md5(strtolower(trim($this->attributes['email'])));
+
+        return "http://www.gravatar.com/avatar/{$hash}?s=80&d=mm&r=g";
+    }
+
+    public function post()
+    {
+        return $this->hasMany('Post');
+    }
 }
