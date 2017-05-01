@@ -1,6 +1,6 @@
 <?php
 
-namespace Blog\Exceptions;
+namespace Blog\Application\Exceptions;
 
 use Exception;
 use Illuminate\Auth\AuthenticationException;
