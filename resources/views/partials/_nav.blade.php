@@ -14,9 +14,10 @@
                 <a href="{{ route('login') }}" class="nav-item is-tab">Login</a>
                 <a href="{{ route('register') }}" class="nav-item is-tab">Register</a>
             @else
+                <a href="{{ url('admin/new-post') }}" class="nav-item is-tab">New Post</a>
                 <a class="nav-item is-tab">
-                    <figure class="image is-16x16" style="margin-right: 8px;">
-                        <img src="http://bulma.io/images/jgthms.png">
+                    <figure class="image is-24x24" style="margin-right: 8px;">
+                        <img src="{{ Auth::user()->getAvatar() }}">
                     </figure>
                     Profile
                 </a>

@@ -1,76 +1,106 @@
 @extends('layouts.app')
 
 @section('content')
-<div class="container">
-    <div class="row">
-        <div class="col-md-8 col-md-offset-2">
-            <div class="panel panel-default">
-                <div class="panel-heading">Register</div>
-                <div class="panel-body">
-                    <form class="form-horizontal" role="form" method="POST" action="{{ route('register') }}">
-                        {{ csrf_field() }}
-
-                        <div class="form-group{{ $errors->has('name') ? ' has-error' : '' }}">
-                            <label for="name" class="col-md-4 control-label">Name</label>
-
-                            <div class="col-md-6">
-                                <input id="name" type="text" class="form-control" name="name" value="{{ old('name') }}" required autofocus>
-
-                                @if ($errors->has('name'))
-                                    <span class="help-block">
-                                        <strong>{{ $errors->first('name') }}</strong>
-                                    </span>
-                                @endif
-                            </div>
-                        </div>
-
-                        <div class="form-group{{ $errors->has('email') ? ' has-error' : '' }}">
-                            <label for="email" class="col-md-4 control-label">E-Mail Address</label>
-
-                            <div class="col-md-6">
-                                <input id="email" type="email" class="form-control" name="email" value="{{ old('email') }}" required>
-
-                                @if ($errors->has('email'))
-                                    <span class="help-block">
-                                        <strong>{{ $errors->first('email') }}</strong>
-                                    </span>
-                                @endif
-                            </div>
-                        </div>
-
-                        <div class="form-group{{ $errors->has('password') ? ' has-error' : '' }}">
-                            <label for="password" class="col-md-4 control-label">Password</label>
-
-                            <div class="col-md-6">
-                                <input id="password" type="password" class="form-control" name="password" required>
-
-                                @if ($errors->has('password'))
-                                    <span class="help-block">
-                                        <strong>{{ $errors->first('password') }}</strong>
-                                    </span>
-                                @endif
-                            </div>
-                        </div>
-
-                        <div class="form-group">
-                            <label for="password-confirm" class="col-md-4 control-label">Confirm Password</label>
-
-                            <div class="col-md-6">
-                                <input id="password-confirm" type="password" class="form-control" name="password_confirmation" required>
-                            </div>
-                        </div>
-
-                        <div class="form-group">
-                            <div class="col-md-6 col-md-offset-4">
-                                <button type="submit" class="btn btn-primary">
-                                    Register
-                                </button>
-                            </div>
-                        </div>
-                    </form>
-                </div>
+    <section class="hero is-primary">
+        <div class="hero-body">
+            <div class="container">
+                <h1 class="title">
+                    Primary title
+                </h1>
+                <h2 class="subtitle">
+                    Primary subtitle
+                </h2>
             </div>
         </div>
-    </div>
-</div>
+    </section>
+
+    <section class="section">
+        <div class="container container__blog">
+            <form class="form-horizontal" role="form" method="POST" action="{{ route('register') }}">
+                {{ csrf_field() }}
+
+                <div class="field">
+                    <label class="label" for="name">Name</label>
+                    <p class="control has-icons-left">
+                        <input id="name" name="name" type="text" value="{{ old('name') }}"
+                               class="input {{ $errors->has('name') ? ' is-danger' : '' }}" required autofocus>
+                        <span class="icon is-small is-left">
+                                  <i class="fa fa-user"></i>
+                                </span>
+                    </p>
+                    @if ($errors->has('name'))
+                        <p class="help is-danger">
+                            {{ $errors->first('name') }}
+                        </p>
+                    @endif
+                </div>
+
+                <div class="field">
+                    <label class="label" for="username">Username</label>
+                    <p class="control has-icons-left">
+                        <input id="username" name="username" type="text" value="{{ old('username') }}"
+                               class="input {{ $errors->has('username') ? ' is-danger' : '' }}" required>
+                        <span class="icon is-small is-left">
+                                  <i class="fa fa-at"></i>
+                                </span>
+                    </p>
+                    @if ($errors->has('username'))
+                        <p class="help is-danger">
+                            {{ $errors->first('username') }}
+                        </p>
+                    @endif
+                </div>
+
+                <div class="field">
+                    <label class="label" for="email">Email</label>
+                    <p class="control has-icons-left">
+                        <input id="email" name="email" type="email" value="{{ old('email') }}"
+                               class="input {{ $errors->has('email') ? ' is-danger' : '' }}" required>
+                        <span class="icon is-small is-left">
+                                  <i class="fa fa-envelope"></i>
+                                </span>
+                    </p>
+                    @if ($errors->has('email'))
+                        <p class="help is-danger">
+                            {{ $errors->first('email') }}
+                        </p>
+                    @endif
+                </div>
+
+                <div class="field">
+                    <label class="label" for="password">Password</label>
+                    <p class="control has-icons-left">
+                        <input id="password" name="password" type="password"
+                               class="input {{ $errors->has('password') ? ' is-danger' : '' }}" required>
+                        <span class="icon is-small is-left">
+                                  <i class="fa fa-lock"></i>
+                                </span>
+                    </p>
+                    @if ($errors->has('password'))
+                        <p class="help is-danger">
+                            {{ $errors->first('password') }}
+                        </p>
+                    @endif
+                </div>
+
+                <div class="field">
+                    <label class="label" for="password-confirm">Confirm Password</label>
+                    <p class="control has-icons-left">
+                        <input id="password-confirm" name="password_confirmation" type="password" class="input" required>
+                        <span class="icon is-small is-left">
+                            <i class="fa fa-lock"></i>
+                        </span>
+                    </p>
+                </div>
+
+                <div class="field">
+                    <p class="control">
+                        <button type="submit" class="button is-success">
+                            Register
+                        </button>
+                    </p>
+                </div>
+            </form>
+        </div>
+    </section>
 @endsection
