@@ -18,8 +18,9 @@ Route::get('/blog', 'BlogController@index');
 
 Route::get('/blog/{id}', 'BlogController@show');
 
-Route::group(['namespace' => 'Admin'], function () {
-    // Controllers Within The "App\Http\Controllers\Admin" Namespace
+Route::get('/profile/{username}', 'UserController@show');
+
+Route::group(['namespace' => 'Admin', 'middleware' => 'auth'], function () {
     Route::get('/admin/new-post', 'BlogController@create');
     Route::post('/admin/new-post', 'BlogController@store');
 });
