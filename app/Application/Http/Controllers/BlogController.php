@@ -2,6 +2,9 @@
 
 namespace Blog\Application\Http\Controllers;
 
+use Blog\Domain\Models\Post;
+use Blog\Domain\Posts\PostTransformer;
+
 /**
  * Class BlogController
  *
@@ -14,7 +17,11 @@ class BlogController extends Controller
      */
     public function index()
     {
-        return view('home');
+        $paginatedPosts = Post::latest()->paginate();
+
+        $posts = fractal($paginatedPosts, new PostTransformer())->toArray();
+
+        return view('home', compact('posts'));
     }
 
     /**

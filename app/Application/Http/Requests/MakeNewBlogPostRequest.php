@@ -4,6 +4,11 @@ namespace Blog\Application\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
+/**
+ * Class MakeNewBlogPostRequest
+ *
+ * @package Blog\Application\Http\Requests
+ */
 class MakeNewBlogPostRequest extends FormRequest
 {
     /**
@@ -13,7 +18,7 @@ class MakeNewBlogPostRequest extends FormRequest
      */
     public function authorize()
     {
-        return false;
+        return true;
     }
 
     /**
@@ -24,7 +29,8 @@ class MakeNewBlogPostRequest extends FormRequest
     public function rules()
     {
         return [
-            //
+            'title' => 'required|string',
+            'body' => 'required|string|',
         ];
     }
 }

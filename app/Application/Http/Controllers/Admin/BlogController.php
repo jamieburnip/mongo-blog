@@ -12,6 +12,9 @@ use Blog\Application\Http\Requests\MakeNewBlogPostRequest;
  */
 class BlogController extends Controller
 {
+    /**
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
     public function create()
     {
         return view('admin.new-post');
@@ -19,9 +22,16 @@ class BlogController extends Controller
 
     /**
      * @param MakeNewBlogPostRequest $newBlogPostRequest
+     *
+     * @return \Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
      */
     public function store(MakeNewBlogPostRequest $newBlogPostRequest)
     {
-        dd($newBlogPostRequest);
+        auth()->user()->posts()->create([
+            'title' => $newBlogPostRequest->title,
+            'body' => $newBlogPostRequest->body,
+        ]);
+
+        return redirect('/blog');
     }
 }
