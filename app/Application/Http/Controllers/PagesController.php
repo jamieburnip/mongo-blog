@@ -7,11 +7,11 @@ use Blog\Domain\Models\Post;
 use Blog\Domain\Posts\PostTransformer;
 
 /**
- * Class BlogController
+ * Class PagesController
  *
  * @package Blog\Application\Http\Controllers
  */
-class BlogController extends Controller
+class PagesController extends Controller
 {
     /**
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
@@ -76,6 +76,11 @@ class BlogController extends Controller
         return redirect("/{$username}/{$slug}");
     }
 
+    /**
+     * @param $postId
+     *
+     * @return \Illuminate\Http\RedirectResponse
+     */
     public function delete($postId)
     {
         Post::destroy($postId);

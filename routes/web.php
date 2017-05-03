@@ -13,7 +13,7 @@
 
 Auth::routes();
 
-Route::get('/', 'BlogController@index');
+Route::get('/', 'PagesController@index');
 
 Route::group(['middleware' => 'auth'], function () {
     Route::get('/new-post', 'BlogController@create');
