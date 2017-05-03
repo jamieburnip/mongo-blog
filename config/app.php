@@ -168,6 +168,7 @@ return [
          */
         Laravel\Tinker\TinkerServiceProvider::class,
         Jenssegers\Mongodb\MongodbServiceProvider::class,
+        Chief\Bridge\Laravel\LaravelServiceProvider::class,
         Barryvdh\Debugbar\ServiceProvider::class,
         Spatie\Fractal\FractalServiceProvider::class,
 
