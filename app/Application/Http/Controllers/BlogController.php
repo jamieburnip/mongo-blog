@@ -33,7 +33,9 @@ class BlogController extends Controller
      */
     public function show($username, $slug)
     {
-        $foundPost = Post::where('slug', $slug)->firstorfail();
+        $foundPost = Post::where('slug', $slug)->where('body.published.content', '=', null)->firstorfail();
+
+        dd($foundPost);
 
         $post = fractal($foundPost, new PostTransformer())->toArray();
 
@@ -61,9 +63,23 @@ class BlogController extends Controller
         auth()->user()->posts()->create([
             'title' => $newBlogPostRequest->title,
             'slug' => $slug,
-            'body' => $newBlogPostRequest->body,
+            'body' => [
+                'published' => [
+                    'content' => null,
+                ],
+                'saved' => [
+                    'content' => $newBlogPostRequest->body
+                ],
+            ],
         ]);
 
         return redirect("/{$username}/{$slug}");
+    }
+
+    public function delete($postId)
+    {
+        Post::destroy($postId);
+
+        return back();
     }
 }
