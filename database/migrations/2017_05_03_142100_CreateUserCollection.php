@@ -1,11 +1,11 @@
 <?php
 
-use Illuminate\Support\Facades\Schema;
-use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
+use Illuminate\Support\Facades\Schema;
 
-class IndexPostsTable extends Migration
+class CreateUserCollection extends Migration
 {
+
     /**
      * Run the migrations.
      *
@@ -13,9 +13,9 @@ class IndexPostsTable extends Migration
      */
     public function up()
     {
-        Schema::table('posts', function ($collection) {
-            $collection->index('title');
-            $collection->unique('slug');
+        Schema::table('user', function ($collection) {
+            $collection->index('username');
+            $collection->unique('email');
         });
     }
 
@@ -26,7 +26,7 @@ class IndexPostsTable extends Migration
      */
     public function down()
     {
-        Schema::table('posts', function ($collection) {
+        Schema::table('user', function ($collection) {
             $collection->drop();
         });
     }

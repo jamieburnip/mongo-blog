@@ -1,10 +1,9 @@
 <?php
 
-use Illuminate\Support\Facades\Schema;
-use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
+use Illuminate\Support\Facades\Schema;
 
-class CreatePasswordResetsTable extends Migration
+class CreatePasswordResetCollection extends Migration
 {
     /**
      * Run the migrations.
@@ -13,7 +12,7 @@ class CreatePasswordResetsTable extends Migration
      */
     public function up()
     {
-        Schema::table('password_resets', function ($collection) {
+        Schema::table('password_reset', function ($collection) {
             $collection->index('email');
         });
     }
@@ -25,7 +24,7 @@ class CreatePasswordResetsTable extends Migration
      */
     public function down()
     {
-        Schema::table('password_resets', function ($collection) {
+        Schema::table('password_reset', function ($collection) {
             $collection->drop();
         });
     }

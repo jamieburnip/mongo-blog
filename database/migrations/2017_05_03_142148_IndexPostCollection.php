@@ -3,9 +3,8 @@
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Support\Facades\Schema;
 
-class CreateUsersTable extends Migration
+class IndexPostCollection extends Migration
 {
-
     /**
      * Run the migrations.
      *
@@ -13,9 +12,9 @@ class CreateUsersTable extends Migration
      */
     public function up()
     {
-        Schema::table('users', function ($collection) {
-            $collection->index('username');
-            $collection->unique('email');
+        Schema::table('post', function ($collection) {
+            $collection->index('title');
+            $collection->unique('slug');
         });
     }
 
@@ -26,7 +25,7 @@ class CreateUsersTable extends Migration
      */
     public function down()
     {
-        Schema::table('users', function ($collection) {
+        Schema::table('post', function ($collection) {
             $collection->drop();
         });
     }
