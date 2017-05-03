@@ -3,7 +3,6 @@
 namespace Blog\Application\Http\Controllers;
 
 use Blog\Domain\Models\User;
-use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
 class ProfileController extends Controller
 {
