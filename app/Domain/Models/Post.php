@@ -11,6 +11,8 @@ use Jenssegers\Mongodb\Eloquent\Model as Eloquent;
  */
 class Post extends Eloquent
 {
+    protected $table = 'post';
+
     /**
      * The attributes that are mass assignable.
      *
