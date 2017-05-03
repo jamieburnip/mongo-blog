@@ -15,10 +15,15 @@ Auth::routes();
 
 Route::get('/', 'PagesController@index');
 
-Route::group(['middleware' => 'auth'], function () {
-    Route::get('/new-post', 'BlogController@create');
-    Route::post('/new-post', 'BlogController@store');
-    Route::delete('/post/{id}/delete', 'BlogController@delete')->name('post.delete');
+Route::group(['namespace' => 'Admin', 'middleware' => 'auth'], function () {
+    Route::get('/admin/', 'AdminPagesController@index');
+    Route::get('/admin/post/new', 'AdminPagesController@index');
+    Route::get('/admin/post/{id}/edit', 'AdminPagesController@index');
+    Route::get('/admin/post/{id}/delete', 'AdminPagesController@index');
+
+//    Route::get('/new-post', 'BlogController@create');
+//    Route::post('/new-post', 'BlogController@store');
+//    Route::delete('/post/{id}/delete', 'BlogController@delete')->name('post.delete');
 });
 
 Route::get('/{username}/{slug}', 'BlogController@show');
