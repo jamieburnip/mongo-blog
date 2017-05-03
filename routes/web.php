@@ -14,13 +14,11 @@
 Auth::routes();
 
 Route::get('/', 'BlogController@index');
-Route::get('/blog', 'BlogController@index');
 
-Route::get('/blog/{slug}', 'BlogController@show');
-
-Route::get('/profile/{username}', 'ProfileController@show');
-
-Route::group(['namespace' => 'Admin', 'middleware' => 'auth'], function () {
-    Route::get('/admin/new-post', 'BlogController@create');
-    Route::post('/admin/new-post', 'BlogController@store');
+Route::group(['middleware' => 'auth'], function () {
+    Route::get('/new-post', 'BlogController@create');
+    Route::post('/new-post', 'BlogController@store');
 });
+
+Route::get('/{username}/{slug}', 'BlogController@show');
+Route::get('/{username}', 'ProfileController@show');

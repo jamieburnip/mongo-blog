@@ -120,7 +120,7 @@ return [
     |
     */
 
-    'log' => env('APP_LOG', 'single'),
+    'log' => env('APP_LOG', 'daily'),
 
     'log_level' => env('APP_LOG_LEVEL', 'debug'),
 
@@ -173,11 +173,11 @@ return [
         /*
          * Application Service Providers...
          */
-        Blog\Infrastructure\Providers\AppServiceProvider::class,
-        Blog\Infrastructure\Providers\AuthServiceProvider::class,
-        // Blog\Infrastructure\Providers\BroadcastServiceProvider::class,
-        Blog\Infrastructure\Providers\EventServiceProvider::class,
-        Blog\Infrastructure\Providers\RouteServiceProvider::class,
+        Blog\Framework\Providers\AppServiceProvider::class,
+        Blog\Framework\Providers\AuthServiceProvider::class,
+        // Blog\Framework\Providers\BroadcastServiceProvider::class,
+        Blog\Framework\Providers\EventServiceProvider::class,
+        Blog\Framework\Providers\RouteServiceProvider::class,
 
     ],
 
