@@ -1,6 +1,6 @@
 <?php
 
-namespace Blog\Infrastructure\Illuminate\Foundation\Auth;
+namespace Blog\Framework\Illuminate\Foundation\Auth;
 
 use Illuminate\Auth\Authenticatable;
 use Illuminate\Auth\Passwords\CanResetPassword;
