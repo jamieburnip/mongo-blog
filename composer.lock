@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "d34dbc11f8cf1ad7ec0efec5c19506fd",
+    "content-hash": "e551bf2fa5924097a2c0089508b80473",
     "packages": [
         {
             "name": "barryvdh/laravel-debugbar",
@@ -59,6 +59,51 @@
                 "webprofiler"
             ],
             "time": "2017-01-19T08:19:49+00:00"
+        },
+        {
+            "name": "chief/chief",
+            "version": "1.2.1",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/adamnicholson/Chief.git",
+                "reference": "83458ac4c01ce17068c3f43394e69a4de9c4d96d"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/adamnicholson/Chief/zipball/83458ac4c01ce17068c3f43394e69a4de9c4d96d",
+                "reference": "83458ac4c01ce17068c3f43394e69a4de9c4d96d",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.4.0"
+            },
+            "require-dev": {
+                "illuminate/container": "*@dev",
+                "illuminate/events": "*@dev",
+                "league/container": "~1.3",
+                "psr/log": "*@dev"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "Chief\\": [
+                        "src/",
+                        "tests/"
+                    ]
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Adam Nicholson",
+                    "email": "adamnicholson10@gmail.com"
+                }
+            ],
+            "description": "A powerful standalone command bus package",
+            "time": "2016-02-28T13:57:22+00:00"
         },
         {
             "name": "dnoegel/php-xdg-base-dir",
