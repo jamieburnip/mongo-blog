@@ -18,8 +18,20 @@ class Post extends Eloquent
      */
     protected $fillable = [
         'title',
+        'slug',
         'body',
     ];
+
+    /**
+     * Return the users avatar.
+     *
+     * @return string
+     */
+    public function getSnippet()
+    {
+        return '';
+//        return substr(strip_tags($this->attributes['body']), 0, 250) . '...';
+    }
 
     /**
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo

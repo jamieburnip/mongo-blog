@@ -6,16 +6,16 @@
             <div class="container">
                 <div class="media">
                     <div class="media-content">
-                        <h1 class="title">{{ $user->name }}</h1>
+                        <h1 class="title">{{ $user['data']['name'] }}</h1>
                         <h2 class="subtitle">
-                            <strong>{{ $user->username }}</strong>
+                            <strong>{{ $user['data']['username'] }}</strong>
                             <br>
-                            <small>Member since: {{ $user->created_at->diffForHumans() }}</small>
+                            <small>Member since: {{ $user['data']['created_at_human'] }}</small>
                         </h2>
                     </div>
                     <div class="media-right">
                         <figure class="image is-96x96">
-                            <img src="{{ $user->getAvatar() }}" alt="Image">
+                            <img src="{{ $user['data']['avatar'] }}" alt="Image">
                         </figure>
                     </div>
                 </div>

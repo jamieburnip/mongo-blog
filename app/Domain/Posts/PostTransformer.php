@@ -24,7 +24,8 @@ class PostTransformer extends TransformerAbstract
             'title' => $post->title,
             'slug' => $post->slug,
             'body' => $post->body,
-            'snippet' => substr(strip_tags($post->body), 0, 250) . '...',
+//            'snippet' => $this->prepairSnippet($post->body),
+            'snippet' => '',
             'author' => [
                 'name' => $post->user->name,
                 'username' => $post->user->username,
@@ -32,5 +33,10 @@ class PostTransformer extends TransformerAbstract
             'created_at' => $post->created_at->toDateTimeString(),
             'created_at_human' => $post->created_at->diffForHumans(),
         ];
+    }
+
+    protected function prepairSnippet($body):string
+    {
+        return substr(strip_tags($body), 0, 250) . '...';
     }
 }

@@ -1,4 +1,4 @@
-@if ($posts->count() > 1)
+@if ($posts->count() > 0)
     @foreach($posts as $post)
         <div class="box">
             <article class="media">
@@ -31,9 +31,15 @@
                                 <a class="level-item">
                                     <span class="icon is-small"><i class="fa fa-pencil"></i></span>
                                 </a>
-                                <a class="level-item">
+                                <a class="level-item" href="{{ route('post.delete', ['id' => $post->id]) }}"
+                                   onclick="event.preventDefault(); document.getElementById('post-delete-form').submit();">
                                     <span class="icon is-small"><i class="fa fa-trash-o"></i></span>
                                 </a>
+
+                                <form id="post-delete-form" action="{{ route('post.delete', ['id' => $post->id]) }}" method="POST" style="display: none;">
+                                    {{ csrf_field() }}
+                                    <input type="hidden" name="_method" value="DELETE">
+                                </form>
                             </div>
                         @endcan
                     </nav>

@@ -168,6 +168,7 @@ return [
          */
         Laravel\Tinker\TinkerServiceProvider::class,
         Jenssegers\Mongodb\MongodbServiceProvider::class,
+        Barryvdh\Debugbar\ServiceProvider::class,
         Spatie\Fractal\FractalServiceProvider::class,
 
         /*
@@ -228,6 +229,7 @@ return [
         'Validator' => Illuminate\Support\Facades\Validator::class,
         'View' => Illuminate\Support\Facades\View::class,
 
+        'Debugbar' => Barryvdh\Debugbar\Facade::class,
         'Fractal' => Spatie\Fractal\FractalFacade::class,
 
     ],

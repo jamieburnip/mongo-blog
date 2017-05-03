@@ -2,7 +2,7 @@
 
 namespace Blog\Domain\Models;
 
-use Blog\Infrastructure\Illuminate\Foundation\Auth\User as Authenticatable;
+use Blog\Framework\Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 
 /**
@@ -43,8 +43,6 @@ class User extends Authenticatable
 
     /**
      * Return the users avatar.
-     * If the user has not set an avatar, return their Gravitar image using their email address.
-     * If the user does not have a Gravitar it returns a default avatar silhouette.
      *
      * @return string
      */
@@ -52,7 +50,7 @@ class User extends Authenticatable
     {
         $hash = md5(strtolower(trim($this->attributes['email'])));
 
-        return "http://www.gravatar.com/avatar/{$hash}?s=80&d=mm&r=g";
+        return "http://www.gravatar.com/avatar/{$hash}?s=96&d=mm&r=g";
     }
 
     /**

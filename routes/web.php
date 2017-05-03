@@ -18,6 +18,7 @@ Route::get('/', 'BlogController@index');
 Route::group(['middleware' => 'auth'], function () {
     Route::get('/new-post', 'BlogController@create');
     Route::post('/new-post', 'BlogController@store');
+    Route::delete('/post/{id}/delete', 'BlogController@delete')->name('post.delete');
 });
 
 Route::get('/{username}/{slug}', 'BlogController@show');
