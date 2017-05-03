@@ -27,8 +27,7 @@ class IndexPostsTable extends Migration
     public function down()
     {
         Schema::table('posts', function ($collection) {
-            $collection->index('title');
-            $collection->unique('slug');
+            $collection->drop();
         });
     }
 }
