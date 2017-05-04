@@ -73,7 +73,7 @@ class PagesController extends Controller
             ],
         ]);
 
-        return redirect("/{$username}/{$slug}");
+        return redirect("/admin/post/{$username}/{$slug}");
     }
 
     /**
