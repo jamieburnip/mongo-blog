@@ -10,6 +10,11 @@ use Chief\CommandBus;
 use Chief\Resolvers\NativeCommandHandlerResolver;
 use Illuminate\Support\ServiceProvider;
 
+/**
+ * Class AppServiceProvider
+ *
+ * @package Blog\Framework\Providers
+ */
 class AppServiceProvider extends ServiceProvider
 {
     /**
@@ -40,5 +45,22 @@ class AppServiceProvider extends ServiceProvider
 
             return new ChiefAdapter($chief);
         });
+
+        /**
+         * Register all post services
+         */
+        $this->registerPostServices();
+    }
+
+    /**
+     *
+     */
+    private function registerPostServices()
+    {
+        $this->app->singleton(
+            \Blog\Domain\Posts\Repository::class,
+            \Blog\Domain\Posts\MongoDbRepository::class
+        );
+
     }
 }
