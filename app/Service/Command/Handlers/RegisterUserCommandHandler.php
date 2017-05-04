@@ -5,11 +5,21 @@ namespace Blog\Service\Command\Handlers;
 use Blog\Domain\Models\User;
 use Blog\Service\Command\RegisterUserCommand;
 
+/**
+ * Class RegisterUserCommandHandler
+ *
+ * @package Blog\Service\Command\Handlers
+ */
 class RegisterUserCommandHandler
 {
-    public function handle(RegisterUserCommand $command)
+    /**
+     * @param RegisterUserCommand $command
+     *
+     * @return User
+     */
+    public function handle(RegisterUserCommand $command): User
     {
-        User::create([
+        return User::create([
             'name' => $command->name,
             'username' => $command->username,
             'email' => $command->email,
