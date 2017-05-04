@@ -22,6 +22,11 @@ class Post extends Eloquent
         'title',
         'slug',
         'body',
+        'published_at',
+    ];
+
+    protected $dates = [
+        'published_at'
     ];
 
     /**
@@ -31,8 +36,7 @@ class Post extends Eloquent
      */
     public function getSnippet()
     {
-        return '';
-//        return substr(strip_tags($this->attributes['body']), 0, 250) . '...';
+        return substr(strip_tags($this->attributes['body']), 0, 250) . '...';
     }
 
     /**
