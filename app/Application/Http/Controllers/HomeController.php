@@ -39,8 +39,6 @@ class HomeController extends Controller
     {
         $posts = $this->postRepository->getAllPublishedPosts();
 
-//        dd($posts->isEmpty());
-
         return view('home', compact('posts'));
     }
 }

@@ -11,7 +11,6 @@ use Blog\Domain\Models\User;
 use Blog\Domain\Posts\Repository as PostRepository;
 use Blog\Domain\User\Traits\ResolvesUser;
 use Blog\Service\Command\CreateBlogPostCommand;
-use Blog\Service\Command\GetPostCommand;
 use Blog\Service\Command\PublishBlogPostCommand;
 use Blog\Service\Command\UpdatePostCommand;
 use Chief\CommandBus;
@@ -45,21 +44,11 @@ class PostsController extends Controller
     }
 
     /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function index()
-    {
-        //
-    }
-
-    /**
      * Show the form for creating a new resource.
      *
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\View\View
      */
-    public function create()
+    public function create(): \Illuminate\View\View
     {
         $post = new Post;
 
@@ -95,32 +84,20 @@ class PostsController extends Controller
     }
 
     /**
-     * Display the specified resource.
-     *
-     * @param  int $id
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function show($id)
-    {
-        //
-    }
-
-    /**
      * Show the form for editing the specified resource.
      *
      * @param $username
      * @param $slug
      *
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\View\View
      * @throws \Illuminate\Auth\Access\AuthorizationException
      * @internal param int $id
      *
      */
-    public function edit($username, $slug)
+    public function edit($username, $slug): \Illuminate\View\View
     {
         /** @var Post $post */
-        $post = $this->chief->execute(new GetPostCommand(auth()->user(), $slug));
+        $post = $this->postRepository->getPostByUserAndSlug(auth()->user(), $slug);
 
         if ($post === null) {
             abort(404);
@@ -165,8 +142,11 @@ class PostsController extends Controller
      *
      * @return RedirectResponse
      */
-    public function publish(QuickPublishPostRequest $quickPublishPostRequest, $username, $slug): \Illuminate\Http\RedirectResponse
-    {
+    public function publish(
+        QuickPublishPostRequest $quickPublishPostRequest,
+        $username,
+        $slug
+    ): \Illuminate\Http\RedirectResponse {
         $publishBlogCommand = new PublishBlogPostCommand(auth()->user());
         $publishBlogCommand->id = $quickPublishPostRequest->id;
 
