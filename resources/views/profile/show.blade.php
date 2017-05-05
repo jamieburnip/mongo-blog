@@ -23,6 +23,13 @@
         </div>
     </section>
 
+    @can('self', $user)
+        @include('profile._draft-bar')
+    @endcan
+    @cannot('self', $user)
+        @include('profile._posts-bar')
+    @endcannot
+
     <section class="section">
         <div class="container container__blog">
             @include('posts._post-list')

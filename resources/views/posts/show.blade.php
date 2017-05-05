@@ -4,17 +4,63 @@
     <section class="hero is-primary">
         <div class="hero-body">
             <div class="container">
-                <h1 class="title">{{ $post['data']['title'] }}</h1>
+                <h1 class="title">{{ $post->title }}</h1>
                 <h2 class="subtitle">
-                    <strong>{{ $post['data']['author']['name'] }}</strong>
+                    <strong>{{ $user->name }}</strong>
                     <small>
-                        <a href="{{ url("/{$post['data']['author']['username']}") }}">{{ $post['data']['author']['username'] }}</a>
+                        <a href="{{ route('profile.index', [$user->username]) }}">{{ $user->username }}</a>
                     </small>
-                    <small>{{ $post['data']['created_at_human'] }}</small>
+                    <br>
+                    @if($post->published_at)
+                        <small>
+                            <time title="{{ $post->published_at }}">{{ $post->published_at->diffForHumans() }}</time>
+                        </small>
+                    @else
+                        <small>Last Updated: {{ $post->updated_at }}</small>
+                    @endif
                 </h2>
             </div>
         </div>
     </section>
+
+    @can('owns', $post)
+        @if(null === $post->published_at)
+            <nav class="nav publish-bar">
+                <div class="container">
+                    <div class="nav-right nav-menu">
+                        <p class="nav-item">
+                            This post has not yet been published....
+                        </p>
+
+                        <div class="nav-item">
+                            <div class="field is-grouped">
+                                <p class="control">
+                                    <a class="level-item button is-white" title="Edit Now"
+                                       href="{{ route('post.edit', [$post->user->username, $post->slug]) }}">
+                                        <span class="icon is-small"><i class="fa fa-pencil"></i></span>
+                                    </a>
+                                </p>
+                                <form class="form-horizontal" role="form" method="POST"
+                                      action="{{ route('post.quick-publish', [
+                                        'username'=> $post->user->username,
+                                        'slug' => $post->slug,
+                                        ]) }}">
+                                    {{ csrf_field() }}
+                                    <input type="hidden" name="id" value="{{ $post->id }}">
+                                    <input type="hidden" name="publish" value="1">
+
+
+                                    <p class="control">
+                                        <button type="submit" class="button is-white">Publish Now</button>
+                                    </p>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </nav>
+        @endif
+    @endcan
 
     <section class="section">
         <div class="container container__blog">
@@ -23,20 +69,23 @@
                 <article class="media">
                     <div class="media-content">
                         <div class="content fr-view">
-                            {!! $post['data']['body'] !!}
+                            {!! $post->body !!}
                         </div>
+                        <hr>
                         <nav class="level is-mobile">
-                            <div class="level-left">
-                                <a class="level-item">
-                                    <span class="icon is-small"><i class="fa fa-reply"></i></span>
-                                </a>
-                                <a class="level-item">
-                                    <span class="icon is-small"><i class="fa fa-retweet"></i></span>
-                                </a>
-                                <a class="level-item">
-                                    <span class="icon is-small"><i class="fa fa-heart"></i></span>
-                                </a>
-                            </div>
+                            @cannot('owns', $post)
+                                <div class="level-left">
+                                    <a class="level-item">
+                                        <span class="icon is-small"><i class="fa fa-reply"></i></span>
+                                    </a>
+                                    <a class="level-item">
+                                        <span class="icon is-small"><i class="fa fa-retweet"></i></span>
+                                    </a>
+                                    <a class="level-item">
+                                        <span class="icon is-small"><i class="fa fa-heart"></i></span>
+                                    </a>
+                                </div>
+                            @endcannot
                         </nav>
                     </div>
                 </article>
@@ -50,8 +99,8 @@
             <div id="disqus_thread"></div>
             <script>
                 var disqus_config = function () {
-                    this.page.url = '{{ url("/{$post['data']['author']['username']}/{$post['data']['slug']}") }}';
-                    this.page.identifier = '{{ $post['data']['id'] }}';
+                    this.page.url = '{{ route('profile.index', [$user->username]) }}';
+                    this.page.identifier = '{{ $post->id }}';
                 };
                 (function () { // DON'T EDIT BELOW THIS LINE
                     var d = document, s = d.createElement('script');
@@ -67,5 +116,6 @@
 @endsection
 
 @section('styles')
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/froala-editor/2.5.1/css/froala_style.min.css" rel="stylesheet" type="text/css" />
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/froala-editor/2.5.1/css/froala_style.min.css" rel="stylesheet"
+          type="text/css"/>
 @endsection
