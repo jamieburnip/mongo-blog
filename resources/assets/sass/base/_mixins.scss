@@ -1,0 +1,103 @@
+// Media Querys
+@mixin phone {
+  @media (max-width: #{$tablet-width - 1px}) {
+    @content;
+  }
+}
+
+@mixin tablet-down {
+  @media (max-width: #{$desktop-width - 1px}) {
+    @content;
+  }
+}
+
+@mixin tablet {
+  @media (min-width: #{$tablet-width}) and (max-width: #{$desktop-width - 1px}) {
+    @content;
+  }
+}
+
+@mixin tablet-up {
+  @media (min-width: #{$tablet-width}) {
+    @content;
+  }
+}
+
+@mixin desktop {
+  @media (min-width: #{$desktop-width}) {
+    @content;
+  }
+}
+
+@mixin custom($min: false, $max: false) {
+  @if ($max) {
+    @media (min-width: #{$tablet-width}) and (max-width: #{$desktop-width - 1px}) {
+      @content;
+    }
+  } @else {
+    @media (min-width: #{$tablet-width}) {
+      @content;
+    }
+  }
+}
+
+@mixin retina {
+  @media only screen and (-webkit-min-device-pixel-ratio: 2),
+  only screen and (min--moz-device-pixel-ratio: 2),
+  only screen and (-o-min-device-pixel-ratio: 2/1),
+  only screen and (min-device-pixel-ratio: 2),
+  only screen and (min-resolution: 192dpi),
+  only screen and (min-resolution: 2dppx) {
+    @content;
+  }
+}
+
+@mixin print {
+  @media print {
+    @content;
+  }
+}
+
+@mixin centerer($horizontal: true, $vertical: true) {
+  position: absolute;
+  @if ($horizontal and $vertical) {
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+  } @else if ($horizontal) {
+    left: 50%;
+    transform: translate(-50%, 0);
+  } @else if ($vertical) {
+    top: 50%;
+    transform: translate(0, -50);
+  }
+}
+
+@mixin clearfix(){
+  /**
+ * For modern browsers
+ * 1. The space content is one way to avoid an Opera bug when the
+ *    contenteditable attribute is included anywhere else in the document.
+ *    Otherwise it causes space to appear at the top and bottom of elements
+ *    that are clearfixed.
+ * 2. The use of `table` rather than `block` is only necessary if using
+ *    `:before` to contain the top-margins of child elements.
+ */
+  .cf:before,
+  .cf:after {
+    content: " "; /* 1 */
+    display: table; /* 2 */
+  }
+
+  .cf:after {
+    clear: both;
+  }
+
+  /**
+   * For IE 6/7 only
+   * Include this rule to trigger hasLayout and contain floats.
+   */
+  .cf {
+    *zoom: 1;
+  }
+}

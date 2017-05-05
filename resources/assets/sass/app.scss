@@ -3,10 +3,12 @@
 @import url(https://fonts.googleapis.com/css?family=Raleway:300,400,600);
 
 // Variables
-@import "variables";
+@import "base/variables";
+@import "base/mixins";
 
 // Bootstrap
 @import "node_modules/bulma/bulma";
 
 // App
-@import "layout";
+@import "base/layout";
+@import "posts/layout";

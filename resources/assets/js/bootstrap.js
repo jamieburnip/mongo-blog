@@ -1,4 +1,3 @@
-
 window._ = require('lodash');
 
 /**
@@ -11,7 +10,8 @@ try {
     window.$ = window.jQuery = require('jquery');
 
     // require('bootstrap-sass');
-} catch (e) {}
+} catch (e) {
+}
 
 /**
  * We'll load the axios HTTP library which allows us to easily issue requests
@@ -23,6 +23,23 @@ window.axios = require('axios');
 
 window.axios.defaults.headers.common['X-CSRF-TOKEN'] = window.Laravel.csrfToken;
 window.axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
+
+/**
+ * Froala
+ */
+
+const froalaToolbarButtons = [
+    'fontSize', 'paragraphFormat', 'align', 'quote', '|', 'formatOL', 'formatUL', '|', 'bold', 'italic', 'underline', '|', 'insertLink', '-',
+    'undo', 'redo', '|', 'bold', 'italic', 'underline'
+];
+
+window.froalaOptions = {
+    heightMin: 400,
+    toolbarButtons: froalaToolbarButtons,
+    toolbarButtonsMD: froalaToolbarButtons,
+    toolbarButtonsSM: froalaToolbarButtons,
+    toolbarButtonsXS: froalaToolbarButtons,
+};
 
 /**
  * Echo exposes an expressive API for subscribing to channels and listening
