@@ -9,15 +9,19 @@ use Illuminate\Support\Collection;
 
 interface Repository
 {
-    public function getAllPublishedPosts(): LengthAwarePaginator;
+    public function getAllPublishedPosts(int $perPage = 15): LengthAwarePaginator;
+
+    public function getPublishedPostsByUser(User $user, int $perPage = 15): LengthAwarePaginator;
+
+    public function getDraftPostsByUser(User $user, int $perPage = 15): LengthAwarePaginator;
 
     public function getPostsByUser(User $user): Collection;
 
     public function getPostByUserAndSlug(User $user, string $slug): ?Post;
 
-    public function getPaginatedPostsByUser(User $user, ?int $pages): LengthAwarePaginator;
+    public function getPublishedPostByUserAndSlug(User $user, string $slug): ?Post;
 
-    public function getPostBySlug(string $postId): Post;
+    public function getPostById(string $postId): Post;
 
     public function destroyPostById(string $postId): bool;
 }

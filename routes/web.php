@@ -30,6 +30,8 @@ Route::group(['middleware' => 'auth'], function () {
     Route::get('/new-post', 'PostsController@create')->name('post.create');
     Route::post('/new-post', 'PostsController@store')->name('post.store');
 
+    Route::get('/drafts', 'ProfileController@draft')->name('post.drafts');
+
     Route::get('/{username}/{slug}/edit', 'PostsController@edit')->name('post.edit');
     Route::post('/{username}/{slug}/edit', 'PostsController@update')->name('post.update');
     Route::post('/{username}/{slug}/quick-publish', 'PostsController@publish')->name('post.quick-publish');

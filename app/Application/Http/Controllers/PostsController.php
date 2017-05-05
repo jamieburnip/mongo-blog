@@ -113,6 +113,7 @@ class PostsController extends Controller
      * @param $slug
      *
      * @return \Illuminate\Http\Response
+     * @throws \Illuminate\Auth\Access\AuthorizationException
      * @internal param int $id
      *
      */
@@ -125,6 +126,8 @@ class PostsController extends Controller
             abort(404);
         }
 
+        $this->authorize('update', $post);
+
         return view('posts.edit-post', compact('post'));
     }
 
@@ -135,11 +138,11 @@ class PostsController extends Controller
      * @param $username
      * @param $slug
      *
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Http\RedirectResponse
      * @internal param UpdatePostRequest $request
      * @internal param int $id
      */
-    public function update(UpdatePostRequest $updatePostRequest, $username, $slug)
+    public function update(UpdatePostRequest $updatePostRequest, $username, $slug): \Illuminate\Http\RedirectResponse
     {
         $updatePostCommand = new UpdatePostCommand(auth()->user());
         $updatePostCommand->id = $updatePostRequest->id;
@@ -154,7 +157,15 @@ class PostsController extends Controller
             'slug' => $slug
         ]);
     }
-    public function publish(QuickPublishPostRequest $quickPublishPostRequest, $username, $slug)
+
+    /**
+     * @param QuickPublishPostRequest $quickPublishPostRequest
+     * @param $username
+     * @param $slug
+     *
+     * @return RedirectResponse
+     */
+    public function publish(QuickPublishPostRequest $quickPublishPostRequest, $username, $slug): \Illuminate\Http\RedirectResponse
     {
         $publishBlogCommand = new PublishBlogPostCommand(auth()->user());
         $publishBlogCommand->id = $quickPublishPostRequest->id;
@@ -173,9 +184,12 @@ class PostsController extends Controller
      * @param DeletePostRequest $deletePostRequest
      *
      * @return \Illuminate\Http\RedirectResponse
+     * @throws \Illuminate\Auth\Access\AuthorizationException
      */
     public function destroy(DeletePostRequest $deletePostRequest): \Illuminate\Http\RedirectResponse
     {
+        $this->authorize('delete', $this->postRepository->getPostById($deletePostRequest->postId));
+
         $this->postRepository->destroyPostById($deletePostRequest->postId);
 
         return back();

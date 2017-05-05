@@ -8,17 +8,43 @@ use Carbon\Carbon;
 use Illuminate\Contracts\Pagination\LengthAwarePaginator;
 use Illuminate\Support\Collection;
 
+/**
+ * Class MongoDbRepository
+ *
+ * @package Blog\Domain\Posts
+ */
 class MongoDbRepository implements Repository
 {
     /**
      * @inheritdoc
      */
-    public function getAllPublishedPosts(): LengthAwarePaginator
+    public function getAllPublishedPosts(int $perPage = 15): LengthAwarePaginator
     {
-        return Post::where('published_at', '!=', 'NULL')
+        return Post::where('published_at', '!=', null)
             ->where('published_at', '<=', Carbon::now())
             ->orderBy('published_at', 'desc')
-            ->paginate();
+            ->paginate($perPage);
+    }
+
+    /**
+     * @inheritdoc
+     */
+    public function getPublishedPostsByUser(User $user, int $perPage = 15): LengthAwarePaginator
+    {
+        return $user->posts()->where('published_at', '!=', null)
+            ->where('published_at', '<=', Carbon::now())
+            ->orderBy('published_at', 'desc')
+            ->paginate($perPage);
+    }
+
+    /**
+     * @inheritdoc
+     */
+    public function getDraftPostsByUser(User $user, int $perPage = 15): LengthAwarePaginator
+    {
+        return $user->posts()->where('published_at', null)
+            ->latest()
+            ->paginate($perPage);
     }
 
     /**
@@ -34,20 +60,26 @@ class MongoDbRepository implements Repository
      */
     public function getPostByUserAndSlug(User $user, string $slug): ?Post
     {
-        return $user->posts()->where('slug', $slug)->first();
-    }
-
-    public function getPaginatedPostsByUser(User $user, ?int $pages): LengthAwarePaginator
-    {
-        return $user->posts()->latest()->paginate($pages);
+        return $user->posts()->where('slug', $slug)->firstOrFail();
     }
 
     /**
      * @inheritdoc
      */
-    public function getPostBySlug(string $postId): Post
+    public function getPublishedPostByUserAndSlug(User $user, string $slug): ?Post
     {
-        dd(Post::find($postId)->get());
+        return $user->posts()->where('published_at', '!=', null)
+            ->where('published_at', '<=', Carbon::now())
+            ->where('slug', $slug)
+            ->firstOrFail();
+    }
+
+    /**
+     * @inheritdoc
+     */
+    public function getPostById(string $postId): Post
+    {
+        return Post::find($postId)->first();
     }
 
     /**

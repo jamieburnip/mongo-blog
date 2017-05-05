@@ -3,10 +3,9 @@
 namespace Blog\Application\Http\Controllers;
 
 use Blog\Domain\Models\Post;
+use Blog\Domain\Posts\Repository as PostRepository;
 use Blog\Domain\User\Traits\ResolvesUser;
-use Blog\Service\Command\GetPostCommand;
-use Blog\Service\Command\ListPostsCommand;
-use Illuminate\Http\Request;
+use Chief\CommandBus;
 use Illuminate\Support\Collection;
 
 /**
@@ -19,6 +18,24 @@ class ProfileController extends Controller
     use ResolvesUser;
 
     /**
+     * @var PostRepository
+     */
+    private $postRepository;
+
+    /**
+     * ProfileController constructor.
+     *
+     * @param CommandBus $chief
+     * @param PostRepository $postRepository
+     */
+    public function __construct(CommandBus $chief, PostRepository $postRepository)
+    {
+        $this->postRepository = $postRepository;
+
+        parent::__construct($chief);
+    }
+
+    /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\View\View
@@ -28,31 +45,22 @@ class ProfileController extends Controller
         $user = $this->resolveUserFromUsername($username);
 
         /** @var Collection $posts */
-        $posts = $this->chief->execute(new ListPostsCommand($user));
+        $posts = $this->postRepository->getPublishedPostsByUser($user);
 
         return view('profile.show', compact('user', 'posts'));
     }
 
     /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\View\View
      */
-    public function create()
+    public function draft(): \Illuminate\View\View
     {
-        //
-    }
+        $user = auth()->user();
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request $request
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function store(Request $request)
-    {
-        //
+        /** @var Collection $posts */
+        $posts = $this->postRepository->getDraftPostsByUser($user);
+
+        return view('profile.draft', compact('user', 'posts'));
     }
 
     /**
@@ -63,55 +71,19 @@ class ProfileController extends Controller
      *
      * @throws \Symfony\Component\HttpKernel\Exception\HttpException
      * @return \Illuminate\View\View
+     * @throws \Illuminate\Auth\Access\AuthorizationException
      */
     public function show($username, $slug): \Illuminate\View\View
     {
         $user = $this->resolveUserFromUsername($username);
 
         /** @var Post $post */
-        $post = $this->chief->execute(new GetPostCommand($user, $slug));
+        $post = $this->postRepository->getPostByUserAndSlug($user, $slug);
 
-        if ($post === null) {
-            abort(404);
+        if ($post->isPublished() === false) {
+            $this->authorize('draft', $post);
         }
 
         return view('posts.show', compact('user', 'post'));
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int $id
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function edit($id)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request $request
-     * @param  int $id
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, $id)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int $id
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy($id)
-    {
-        //
     }
 }
