@@ -12,9 +12,6 @@
                         <p>{{ $post->getSnippet() }}</p>
                         <p>
                             <strong>{{ $post->user->name }}</strong>
-                            <small>
-                                <a href="{{ route('profile.index', [$post->user->username]) }}">{{ $post->user->username }}</a>
-                            </small>
                             @if($post->published_at)
                                 <small><time title="{{ $post->published_at }}">{{ $post->published_at->diffForHumans() }}</time></small>
                             @endif
@@ -22,11 +19,8 @@
                     </div>
                     <nav class="level is-mobile">
                         <div class="level-left">
-                            <a class="level-item">
-                                <span class="icon is-small"><i class="fa fa-bookmark-o"></i></span>
-                            </a>
-                            <a class="level-item">
-                                <span class="icon is-small"><i class="fa fa-heart-o"></i></span>
+                            <a href="{{ route('profile.index', [$post->user->username]) }}" class="level-item">
+                                {{ $post->user->username }}
                             </a>
                         </div>
 
