@@ -25,4 +25,41 @@ class PostPolicy
     {
         return $user->id === $post->user_id;
     }
+
+    /**
+     * @param User $user
+     * @param Post $post
+     *
+     * @return bool
+     */
+    public function update(User $user, Post $post): bool
+    {
+        return $user->id === $post->user_id;
+    }
+
+    /**
+     * @param User $user
+     * @param Post $post
+     *
+     * @return bool
+     */
+    public function delete(User $user, Post $post): bool
+    {
+        return $user->id === $post->user_id;
+    }
+
+    /**
+     * @param User $user
+     * @param Post $post
+     *
+     * @return bool
+     */
+    public function draft(User $user, Post $post): bool
+    {
+        if($post->isPublished()){
+            return true;
+        }
+
+        return $user->id === $post->user_id;
+    }
 }

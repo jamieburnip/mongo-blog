@@ -3,7 +3,9 @@
 namespace Blog\Framework\Providers;
 
 use Blog\Domain\Models\Post;
+use Blog\Domain\Models\User;
 use Blog\Framework\Policies\PostPolicy;
+use Blog\Framework\Policies\UserPolicy;
 use Illuminate\Foundation\Support\Providers\AuthServiceProvider as ServiceProvider;
 
 class AuthServiceProvider extends ServiceProvider
@@ -15,6 +17,7 @@ class AuthServiceProvider extends ServiceProvider
      */
     protected $policies = [
         Post::class => PostPolicy::class,
+        User::class => UserPolicy::class,
     ];
 
     /**
