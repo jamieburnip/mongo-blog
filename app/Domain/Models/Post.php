@@ -39,6 +39,11 @@ class Post extends Eloquent
         return substr(strip_tags($this->attributes['body']), 0, 250) . '...';
     }
 
+    public function isPublished()
+    {
+        return null !== $this->published_at;
+    }
+
     /**
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */

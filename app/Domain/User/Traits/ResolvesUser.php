@@ -15,6 +15,10 @@ trait ResolvesUser
      */
     public function resolveUserFromUsername(string $username): User
     {
+        if (auth()->check() && $username === auth()->user()->username) {
+            return auth()->user();
+        }
+
         return User::where('username', ltrim($username, '@'))->firstorfail();
     }
 }
