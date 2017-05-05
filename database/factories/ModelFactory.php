@@ -22,3 +22,15 @@ $factory->define(Blog\Domain\Models\User::class, function (Faker\Generator $fake
         'remember_token' => str_random(10),
     ];
 });
+
+/** @var \Illuminate\Database\Eloquent\Factory $factory */
+$factory->define(Blog\Domain\Models\Post::class, function (Faker\Generator $faker) {
+    $title = $faker->title;
+    $slug = str_slug($title);
+
+    return [
+        'title' => $title,
+        'body' => $slug,
+        'published_at' => \Carbon\Carbon::now()->subMinutes(random_int(999,99999999)),
+    ];
+});
