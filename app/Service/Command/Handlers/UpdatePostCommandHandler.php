@@ -4,6 +4,7 @@ namespace Blog\Service\Command\Handlers;
 
 use Blog\Domain\Models\Post;
 use Blog\Service\Command\UpdatePostCommand;
+use Carbon\Carbon;
 
 /**
  * Class UpdatePostCommandHandler
@@ -23,7 +24,10 @@ class UpdatePostCommandHandler
 
         $post->title = $command->title ?: $post->title;
         $post->body = $command->body ?: $post->body;
-        $post->published_at = $command->published ?: $post->published_at;
+
+        if ($command->published) {
+            $post->published_at = Carbon::now();
+        }
 
         $post->save();
 
